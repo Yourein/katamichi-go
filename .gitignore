@@ -24,4 +24,7 @@
 # Go workspace file
 go.work
 
+# Output of go build
+katamichi-go
+
 # End of https://www.toptal.com/developers/gitignore/api/go
