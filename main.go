@@ -41,6 +41,10 @@ func fetch_data() []Reservation {
     }
 
     doc.Find("#service-items-shop-type-start .service-item").Each(func(i int, s *goquery.Selection){
+           if s.Find(".service-item__body.show-entry-end").Length() > 0 {
+                return
+            }
+
             car := s.Find(".service-item__info__car-type p").Eq(1).Text()
             raw_depart_shop := s.Find(".service-item__shop-start p").Eq(1).Text()
             raw_return_shop := s.Find(".service-item__shop-return p").Eq(1).Text()
