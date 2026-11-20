@@ -1,7 +1,6 @@
 package main
 
 import (
-    "fmt"
     "log"
     "strings"
     "net/http"
@@ -104,22 +103,19 @@ func find_diff(before []Reservation, after []Reservation) ([]Reservation, []Rese
 
 func main() {
     old_reservations := []Reservation{}
-    // to suppress unused variable warning
-    _ = old_reservations
 
     for {
         reservations := fetch_data()
-        fmt.Printf("%v\n", reservations)
-
         additions, deletions := find_diff(old_reservations, reservations)
 
         for _, addition := range additions {
             err := sendAddition(addition)
-            break
 
             if err != nil {
                 log.Print(err)
             }
+
+            time.Sleep(100 * time.Millisecond)
         }
 
         for _, deletion := range deletions {
@@ -128,6 +124,8 @@ func main() {
             if err != nil {
                 log.Print(err)
             }
+
+            time.Sleep(100 * time.Millisecond)
         }
         
         old_reservations = reservations
