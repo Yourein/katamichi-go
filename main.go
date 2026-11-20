@@ -106,10 +106,27 @@ func main() {
     for {
         reservations := fetch_data()
         fmt.Printf("%v\n", reservations)
-        time.Sleep(5 * time.Second)
-        old_reservations := reservations
 
-        // to suppress unused variable warning
-        _ = old_reservations
+        additions, deletions := find_diff(old_reservations, reservations)
+
+        for _, addition := range additions {
+            err := sendAddition(addition)
+            break
+
+            if err != nil {
+                log.Print(err)
+            }
+        }
+
+        for _, deletion := range deletions {
+            err := sendDeletion(deletion)
+
+            if err != nil {
+                log.Print(err)
+            }
+        }
+        
+        old_reservations = reservations
+        time.Sleep(5 * time.Minute)
     }
 }
