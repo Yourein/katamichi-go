@@ -70,6 +70,7 @@ func find_diff(before []Reservation, after []Reservation) ([]Reservation, []Rese
     for _, ax := range after {
         found := false
         for i, bx := range before {
+            // 既にafterの要素とマッチング出来ていたら飛ばす
             if matched[i] {
                 continue
             }
@@ -81,11 +82,13 @@ func find_diff(before []Reservation, after []Reservation) ([]Reservation, []Rese
             }
         }
 
+        // 前方からbeforeを探してマッチング対象がなければ新規掲載
         if !found {
             addition = append(addition, ax)
         }
    }
 
+    // afterの要素とマッチングしなかったbeforeの要素は掲載終了
     for i, mx := range matched {
         if !mx {
             deletion = append(deletion, before[i])
