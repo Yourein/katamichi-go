@@ -1,7 +1,6 @@
 package main
 
 import (
-    // "io"
     "fmt"
     "log"
     "strings"
@@ -58,18 +57,6 @@ func fetch_data() []Reservation {
 }
 
 func main() {
-    /*
-    fmt.Printf("%d\n", res.StatusCode)
-    fmt.Printf("%s\n", res.Body)
-
-    content, err := io.ReadAll(res.Body)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    responseString := string(content)
-    fmt.Println(responseString)
-    */
-
-    fmt.Printf("%v\n", fetch_data())
+    reservations := fetch_data()
+    fmt.Printf("%v\n", reservations)
 }
