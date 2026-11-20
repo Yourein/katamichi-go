@@ -5,6 +5,7 @@ import (
     "log"
     "strings"
     "net/http"
+    "time"
 
     "github.com/PuerkitoBio/goquery"
 )
@@ -56,7 +57,56 @@ func fetch_data() []Reservation {
     return available
 }
 
+// (before, after) -> (addition, deletion)
+func find_diff(before []Reservation, after []Reservation) ([]Reservation, []Reservation) {
+    matched := make([]bool, len(before), len(before))
+    addition := []Reservation{}
+    deletion := []Reservation{}
+
+    for i, _ := range matched {
+        matched[i] = false
+    }
+
+    for _, ax := range after {
+        found := false
+        for i, bx := range before {
+            if matched[i] {
+                continue
+            }
+
+            if bx == ax {
+                matched[i] = true
+                found = true
+                break
+            }
+        }
+
+        if !found {
+            addition = append(addition, ax)
+        }
+   }
+
+    for i, mx := range matched {
+        if !mx {
+            deletion = append(deletion, before[i])
+        }
+    }
+
+    return addition, deletion
+}
+
 func main() {
-    reservations := fetch_data()
-    fmt.Printf("%v\n", reservations)
+    old_reservations := []Reservation{}
+    // to suppress unused variable warning
+    _ = old_reservations
+
+    for {
+        reservations := fetch_data()
+        fmt.Printf("%v\n", reservations)
+        time.Sleep(5 * time.Second)
+        old_reservations := reservations
+
+        // to suppress unused variable warning
+        _ = old_reservations
+    }
 }
