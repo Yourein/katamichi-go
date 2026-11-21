@@ -11,16 +11,19 @@ func TestNoDiff(t *testing.T) {
             Car: "カローラツーリングHV　車両番号0000",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ハイエースバン　車両番号1111",
             Departure: "トヨタモビリティサービス　成田空港店",
             Arrival: "トヨタレンタリース名古屋　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ヤリス　車両番号2222",
             Departure: "トヨタレンタリース青森　青森空港店",
             Arrival: "トヨタレンタリース宮城　返却可能店舗",
+            DepartureDate: "",
         },
     }
     after := before
@@ -44,11 +47,13 @@ func TestSimpleAddition(t *testing.T) {
             Car: "カローラツーリングHV　車両番号0000",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ヤリス　車両番号2222",
             Departure: "トヨタレンタリース青森　青森空港店",
             Arrival: "トヨタレンタリース宮城　返却可能店舗",
+            DepartureDate: "",
         },
     }
     after := []Reservation{
@@ -56,16 +61,19 @@ func TestSimpleAddition(t *testing.T) {
             Car: "カローラツーリングHV　車両番号0000",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ハイエースバン　車両番号1111",
             Departure: "トヨタモビリティサービス　成田空港店",
             Arrival: "トヨタレンタリース名古屋　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ヤリス　車両番号2222",
             Departure: "トヨタレンタリース青森　青森空港店",
             Arrival: "トヨタレンタリース宮城　返却可能店舗",
+            DepartureDate: "",
         },
     }
 
@@ -74,6 +82,7 @@ func TestSimpleAddition(t *testing.T) {
             Car: "ハイエースバン　車両番号1111",
             Departure: "トヨタモビリティサービス　成田空港店",
             Arrival: "トヨタレンタリース名古屋　返却可能店舗",
+            DepartureDate: "",
         },
     }
     deletion_expected := []Reservation{}
@@ -94,16 +103,19 @@ func TestSimpleDeletion(t *testing.T) {
             Car: "カローラツーリングHV　車両番号0000",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ハイエースバン　車両番号1111",
             Departure: "トヨタモビリティサービス　成田空港店",
             Arrival: "トヨタレンタリース名古屋　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ヤリス　車両番号2222",
             Departure: "トヨタレンタリース青森　青森空港店",
             Arrival: "トヨタレンタリース宮城　返却可能店舗",
+            DepartureDate: "",
         },
     }
     after := []Reservation{
@@ -111,6 +123,7 @@ func TestSimpleDeletion(t *testing.T) {
             Car: "ヤリス　車両番号2222",
             Departure: "トヨタレンタリース青森　青森空港店",
             Arrival: "トヨタレンタリース宮城　返却可能店舗",
+            DepartureDate: "",
         },
     }
 
@@ -120,11 +133,13 @@ func TestSimpleDeletion(t *testing.T) {
             Car: "カローラツーリングHV　車両番号0000",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "ハイエースバン　車両番号1111",
             Departure: "トヨタモビリティサービス　成田空港店",
             Arrival: "トヨタレンタリース名古屋　返却可能店舗",
+            DepartureDate: "",
         },
     }
     addition_actual, deletion_actual := find_diff(before, after)
@@ -144,6 +159,7 @@ func TestWhenCompletelySameReservationAdded(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
     after := []Reservation{
@@ -151,11 +167,13 @@ func TestWhenCompletelySameReservationAdded(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
 
@@ -164,6 +182,7 @@ func TestWhenCompletelySameReservationAdded(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
     deletion_expected := []Reservation{}
@@ -184,11 +203,13 @@ func TestWhenCompletelySameReservationDeleted(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
         Reservation {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
     after := []Reservation{
@@ -196,6 +217,7 @@ func TestWhenCompletelySameReservationDeleted(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
 
@@ -205,6 +227,7 @@ func TestWhenCompletelySameReservationDeleted(t *testing.T) {
             Car: "カローラツーリングHV",
             Departure: "トヨタモビリティサービス　品川高輪口店",
             Arrival: "トヨタレンタリース青森　返却可能店舗",
+            DepartureDate: "",
         },
     }
     addition_actual, deletion_actual := find_diff(before, after)

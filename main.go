@@ -10,9 +10,10 @@ import (
 )
 
 type Reservation struct {
-    Car       string
-    Departure string
-    Arrival   string
+    Car           string
+    Departure     string
+    Arrival       string
+    DepartureDate string
 }
 
 func normalize_string(s string) string {
@@ -48,11 +49,13 @@ func fetch_data() []Reservation {
             raw_depart_shop := s.Find(".service-item__shop-start p").Eq(1).Text()
             raw_return_shop := s.Find(".service-item__shop-return p").Eq(1).Text()
             depart_shop := normalize_string(raw_depart_shop) 
-            return_shop := normalize_string(raw_return_shop) 
+            return_shop := normalize_string(raw_return_shop)
+            departure_date := s.Find(".service-item__info__date").Text()
             reservation := Reservation {
                 Car: car,
                 Departure: depart_shop,
                 Arrival: return_shop,
+                DepartureDate: departure_date,
             }
             available = append(available, reservation)
         })
@@ -127,7 +130,7 @@ func main() {
 
             time.Sleep(100 * time.Millisecond)
         }
-        
+
         old_reservations = reservations
         time.Sleep(5 * time.Minute)
     }

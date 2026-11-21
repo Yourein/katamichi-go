@@ -33,6 +33,7 @@ func sendAddition(res Reservation) error {
             {Name: "車", Value: res.Car, Inline: false},
 			{Name: "出発店舗", Value: res.Departure, Inline: false},
 			{Name: "到着地", Value: res.Arrival, Inline: false},
+            {Name: "出発日程", Value: res.DepartureDate, Inline: false},
 		},
 		Timestamp: time.Now().Format(time.RFC3339),
 	}
@@ -55,6 +56,7 @@ func sendDeletion(res Reservation) error {
 			{Name: "車", Value: res.Car, Inline: false},
 			{Name: "出発店舗", Value: res.Departure, Inline: false},
 			{Name: "到着地", Value: res.Arrival, Inline: false},
+            {Name: "出発日程", Value: res.DepartureDate, Inline: false},
 		},
 		Timestamp: time.Now().Format(time.RFC3339),
 	}
