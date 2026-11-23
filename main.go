@@ -1,6 +1,8 @@
 package main
 
 import (
+    "errors"
+    "fmt"
     "log"
     "strings"
     "net/http"
@@ -21,7 +23,7 @@ func normalize_string(s string) string {
     return strings.ReplaceAll(whitespace_stripped_s, " （下記参照）", "")
 }
 
-func fetch_data() []Reservation {
+func fetch_data() ([]Reservation, error) {
     available := []Reservation{}
 
     res, err := http.Get("https://toyota-rentacar.com/?fp=t%2FWGf6fpT40ToDKVIpylTEeVTHfyJepR%2Bq8BsDQTmEw89Cf%2B1lcCCP6bkMbERjSICfGC3SxajVUjzGygz1UEtA%3D%3D&prvtof=ZqqiGB99cN%2FowlGpVw6sSkXMAzP10XMIncNfX%2FFwjGs%3D&poru=2NYiaB8r4Z6C90%2F0467BTq5ljD7HhVJPndWIiJrgtRdftvfd9m52OgaLrVtvEyRJ")
@@ -32,7 +34,8 @@ func fetch_data() []Reservation {
 
     defer res.Body.Close()
     if res.StatusCode != 200 {
-        log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+        errStr := fmt.Sprintf("status code error: %d %s", res.StatusCode, res.Status)
+        return nil, errors.New(errStr)
     }
 
     doc, err := goquery.NewDocumentFromReader(res.Body)
@@ -60,7 +63,7 @@ func fetch_data() []Reservation {
             available = append(available, reservation)
         })
 
-    return available
+    return available, nil
 }
 
 // (before, after) -> (addition, deletion)
@@ -108,7 +111,19 @@ func main() {
     old_reservations := []Reservation{}
 
     for {
-        reservations := fetch_data()
+        reservations, err := fetch_data()
+
+        if err != nil {
+            whErr := sendError(err)
+            
+            if whErr != nil {
+                log.Print(err)
+            }
+
+            time.Sleep(5 * time.Minute)
+            continue
+        }
+
         additions, deletions := find_diff(old_reservations, reservations)
 
         for _, addition := range additions {

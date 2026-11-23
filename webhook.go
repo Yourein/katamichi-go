@@ -70,3 +70,22 @@ func sendDeletion(res Reservation) error {
 	defer resp.Body.Close()
 	return nil
 }
+
+func sendError(reason error) error {
+    embed := Embed{
+		Title:       reason.Error(),
+		Color:       15548997, // Red in decimal
+		Fields: []EmbedField{},
+		Timestamp: time.Now().Format(time.RFC3339),
+	}
+
+	body, _ := json.Marshal(EmbedPayload{Embeds: []Embed{embed}})
+    webhookURL := os.Getenv("KATAMICHI_GO_WEBHOOK")
+	resp, err := http.Post(webhookURL, "application/json", bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	return nil
+
+}
